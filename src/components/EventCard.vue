@@ -22,11 +22,11 @@ export default {
         time: '6:00',
         attendees: [
           { id: 'abc123', name: 'Adam Jahr' },
-          { id: 'def456', name: 'Gregg Pollack' }
-        ]
-      }
+          { id: 'def456', name: 'Gregg Pollack' },
+        ],
+      },
     }
-  }
+  },
 }
 </script>
 

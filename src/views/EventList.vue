@@ -10,7 +10,7 @@ import EventCard from '@/components/EventCard.vue'
 
 export default {
   components: {
-    EventCard
-  }
+    EventCard,
+  },
 }
 </script>
