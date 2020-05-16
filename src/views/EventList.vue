@@ -3,31 +3,35 @@
     <h1>Events Listing</h1>
 
     <EventCard v-for="event in events" :key="event.id" :event="event" />
+
+    <router-link
+      :to="{ name: 'event-list', query: { page: page - 1 } }"
+      rel="prev"
+    >
+      Prev Page
+    </router-link>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import EventCard from '@/components/EventCard.vue'
-import EventService from '@/services/EventService.js'
 
 export default {
   components: {
     EventCard,
   },
 
-  data() {
-    return {
-      events: [],
-    }
+  created() {
+    this.$store.dispatch('fetchEvents', { perPage: 3, page: this.page })
   },
 
-  async created() {
-    try {
-      const { data } = await EventService.getEvents()
-      this.events = data
-    } catch ({ response }) {
-      console.log(`There was an error: ${response}`)
-    }
+  computed: {
+    ...mapState(['events']),
+    page() {
+      return parseInt(this.$route.query.page) || 1
+    },
   },
 }
 </script>
