@@ -21,10 +21,13 @@ export default {
     }
   },
 
-  created() {
-    EventService.getEvents()
-      .then(({ data }) => (this.events = data))
-      .catch(({ response }) => console.log(`There was an error: ${response}`))
+  async created() {
+    try {
+      const { data } = await EventService.getEvents()
+      this.events = data
+    } catch ({ response }) {
+      console.log(`There was an error: ${response}`)
+    }
   },
 }
 </script>
