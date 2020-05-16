@@ -6,10 +6,14 @@
       <h5>Organized by {{ event.organizer }}</h5>
       <h5>Category: {{ event.category }}</h5>
     </div>
+
     <BaseIcon name="map"><h2>Location</h2></BaseIcon>
+
     <address>{{ event.location }}</address>
+
     <h2>Event details</h2>
     <p>{{ event.description }}</p>
+
     <h2>
       Attendees
       <span class="badge -fill-gradient">{{
@@ -27,27 +31,27 @@
     </ul>
   </div>
 </template>
-
 <script>
 import EventService from '@/services/EventService.js'
 
 export default {
   props: ['id'],
-
   data() {
     return {
-      event: {},
+      event: {}
     }
   },
-
   created() {
     EventService.getEvent(this.id)
-      .then(({ data }) => (this.event = data))
-      .catch(({ response }) => console.log(`There was an error: ${response}`))
-  },
+      .then(response => {
+        this.event = response.data
+      })
+      .catch(error => {
+        console.log('There was an error:', error.response)
+      })
+  }
 }
 </script>
-
 <style scoped>
 .location {
   margin-bottom: 0;

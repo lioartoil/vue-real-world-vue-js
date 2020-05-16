@@ -4,6 +4,9 @@ import camelCase from 'lodash/camelCase'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import BaseIcon from '@/components/BaseIcon'
+
+Vue.component('BaseIcon', BaseIcon)
 
 Vue.config.productionTip = false
 
@@ -13,7 +16,7 @@ const requireComponent = require.context(
   /Base[A-Z]\w+\.(vue|js)$/
 )
 
-requireComponent.keys().forEach((fileName) => {
+requireComponent.keys().forEach(fileName => {
   const componentConfig = requireComponent(fileName)
 
   const componentName = upperFirst(
@@ -26,5 +29,5 @@ requireComponent.keys().forEach((fileName) => {
 new Vue({
   router,
   store,
-  render: (h) => h(App),
+  render: h => h(App)
 }).$mount('#app')
