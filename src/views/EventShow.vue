@@ -45,7 +45,7 @@ export default {
 
   data() {
     return {
-      event: {}
+      event: {},
     }
   },
 
@@ -53,7 +53,7 @@ export default {
     EventService.getEvent(this.id)
       .then(({ data }) => (this.event = data))
       .catch(({ response }) => console.log(`There was an error: ${response}`))
-  }
+  },
 }
 </script>
 

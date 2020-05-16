@@ -10,19 +10,19 @@ const routes = [
   {
     path: '/',
     name: 'EventList',
-    component: EventList
+    component: EventList,
   },
   {
     path: '/event/:id',
     name: 'EventShow',
     component: EventShow,
-    props: true
+    props: true,
   },
   {
     path: '/event/create',
     name: 'EventCreate',
-    component: EventCreate
-  }
+    component: EventCreate,
+  },
   // {
   //   path: '/about-us',
   //   name: 'About',
@@ -38,7 +38,7 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
 
 export default router

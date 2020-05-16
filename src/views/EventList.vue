@@ -12,12 +12,12 @@ import EventService from '@/services/EventService.js'
 
 export default {
   components: {
-    EventCard
+    EventCard,
   },
 
   data() {
     return {
-      events: []
+      events: [],
     }
   },
 
@@ -25,6 +25,6 @@ export default {
     EventService.getEvents()
       .then(({ data }) => (this.events = data))
       .catch(({ response }) => console.log(`There was an error: ${response}`))
-  }
+  },
 }
 </script>
