@@ -1,6 +1,7 @@
 <template>
   <div id="nav" class="nav">
     <router-link to="/" class="brand">Real World Events</router-link>
+
     <nav>
       <router-link :to="{ name: 'event-list' }">List</router-link> |
       <router-link :to="{ name: 'event-create' }">Create</router-link>
@@ -19,6 +20,7 @@ export default {}
   align-items: center;
   height: 60px;
 }
+
 .nav > .brand {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
@@ -26,12 +28,14 @@ export default {}
   color: #39b982;
   text-decoration: none;
 }
+
 .nav .nav-item {
   box-sizing: border-box;
   margin: 0 5px;
   color: rgba(0, 0, 0, 0.5);
   text-decoration: none;
 }
+
 .nav .nav-item.router-link-exact-active {
   color: #39b982;
   border-bottom: solid 2px #39b982;
