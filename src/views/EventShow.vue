@@ -31,6 +31,7 @@
     </ul>
   </div>
 </template>
+
 <script>
 import EventService from '@/services/EventService.js'
 
@@ -43,15 +44,12 @@ export default {
   },
   created() {
     EventService.getEvent(this.id)
-      .then(response => {
-        this.event = response.data
-      })
-      .catch(error => {
-        console.log('There was an error:', error.response)
-      })
+      .then(({ data }) => (this.event = data))
+      .catch(({ response }) => console.log(`There was an error: ${response}`))
   }
 }
 </script>
+
 <style scoped>
 .location {
   margin-bottom: 0;

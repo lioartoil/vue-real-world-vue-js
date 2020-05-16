@@ -13,19 +13,17 @@ export default {
   components: {
     EventCard
   },
+
   data() {
     return {
       events: []
     }
   },
+
   created() {
     EventService.getEvents()
-      .then(response => {
-        this.events = response.data
-      })
-      .catch(error => {
-        console.log('There was an error:', error.response)
-      })
+      .then(({ data }) => (this.events = data))
+      .catch(({ response }) => console.log(`There was an error: ${response}`))
   }
 }
 </script>

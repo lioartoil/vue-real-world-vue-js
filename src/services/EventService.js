@@ -1,6 +1,6 @@
-import axios from 'axios'
+import { create } from 'axios'
 
-const apiClient = axios.create({
+const apiClient = create({
   baseURL: `http://localhost:3000`,
   withCredentials: false, // This is the default
   headers: {
@@ -10,10 +10,11 @@ const apiClient = axios.create({
 })
 
 export default {
+  getEvent(id) {
+    return apiClient.get(`/events/${id}`)
+  },
+
   getEvents() {
     return apiClient.get('/events')
-  },
-  getEvent(id) {
-    return apiClient.get('/events/' + id)
   }
 }

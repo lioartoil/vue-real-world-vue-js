@@ -1,7 +1,7 @@
 <template>
   <div class="icon-wrapper">
     <svg class="icon" :width="width" :height="height">
-      <use v-bind="{ 'xlink:href': '/feather-sprite.svg#' + name }" />
+      <use v-bind="{ 'xlink:href': `/feather-sprite.svg#${name}` }" />
     </svg>
     <slot></slot>
   </div>
@@ -32,6 +32,7 @@ export default {
   font-size: 1rem;
   font-weight: 600;
 }
+
 .icon {
   stroke: currentColor;
   stroke-width: 2;
