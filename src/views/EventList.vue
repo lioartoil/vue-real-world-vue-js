@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Events Listing</h1>
+    <h1>Events for {{ user.name }}</h1>
 
     <EventCard v-for="event in events" :key="event.id" :event="event" />
 
@@ -37,7 +37,7 @@ export default {
   created() {
     this.perPage = 3
 
-    this.$store.dispatch('fetchEvents', {
+    this.$store.dispatch('event/fetchEvents', {
       perPage: this.perPage,
       page: this.page,
     })
@@ -50,7 +50,11 @@ export default {
     hasNextPage() {
       return this.eventsTotal > this.page * this.perPage
     },
-    ...mapState(['events', 'eventsTotal']),
+    ...mapState({
+      events: (state) => state.event.events,
+      eventsTotal: (state) => state.event.eventsTotal,
+      user: (state) => state.user.user,
+    }),
   },
 }
 </script>
