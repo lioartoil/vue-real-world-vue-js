@@ -45,24 +45,28 @@ export const actions = {
       throw error
     }
   },
-  async fetchEvent({ commit, dispatch, getters }, id) {
+  fetchEvent({ commit, dispatch, getters }, id) {
     const event = getters.getEventById(id)
 
     if (event) {
-      return commit('SET_EVENT', event)
+      commit('SET_EVENT', event)
+
+      return event
     }
 
-    try {
-      const { data } = await EventService.getEvent(id)
+    return EventService.getEvent(id)
+      .then(({ data }) => {
+        commit('SET_EVENT', data)
 
-      return commit('SET_EVENT', data)
-    } catch ({ message }) {
-      const notification = {
-        type: 'error',
-        message: `There was a problem fetching an event: ${message}`,
-      }
-      dispatch('notification/add', notification, { root: true })
-    }
+        return data
+      })
+      .catch(({ message }) => {
+        const notification = {
+          type: 'error',
+          message: `There was a problem fetching an event: ${message}`,
+        }
+        dispatch('notification/add', notification, { root: true })
+      })
   },
   async fetchEvents({ commit, dispatch }, { perPage, page }) {
     try {
