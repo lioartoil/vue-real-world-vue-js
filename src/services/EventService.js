@@ -1,7 +1,7 @@
-import axios from 'axios'
+import { create } from 'axios'
 import NProgress from 'nprogress'
 
-const apiClient = axios.create({
+const apiClient = create({
   baseURL: `http://localhost:3000`,
   withCredentials: false, // This is the default
   headers: {
@@ -15,7 +15,7 @@ apiClient.interceptors.request.use((config) => {
   return config
 })
 
-apiClient.interceptors.request.use((response) => {
+apiClient.interceptors.response.use((response) => {
   NProgress.done()
   return response
 })
