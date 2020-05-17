@@ -1,7 +1,7 @@
-import { create } from 'axios'
+import axios from 'axios'
 import NProgress from 'nprogress'
 
-const apiClient = create({
+const apiClient = axios.create({
   baseURL: `http://localhost:3000`,
   withCredentials: false, // This is the default
   headers: {

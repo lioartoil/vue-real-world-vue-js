@@ -55,7 +55,7 @@ export const actions = {
     try {
       const { data } = await EventService.getEvent(id)
 
-      commit('SET_EVENT', data)
+      return commit('SET_EVENT', data)
     } catch ({ message }) {
       const notification = {
         type: 'error',
