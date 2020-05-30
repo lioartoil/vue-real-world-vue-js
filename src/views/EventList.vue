@@ -28,31 +28,52 @@
 import { mapState } from 'vuex'
 
 import EventCard from '@/components/EventCard.vue'
+import store from '@/store/store'
+
+async function getPageEvents(routeTo, next) {
+  const currentPage = parseInt(routeTo.query.page) || 1
+
+  try {
+    await store.dispatch('event/fetchEvents', {
+      page: currentPage,
+    })
+
+    routeTo.params.page = currentPage
+    next()
+  } catch (e) {}
+}
 
 export default {
+  props: {
+    page: {
+      type: Number,
+      required: true,
+    },
+  },
+
   components: {
     EventCard,
   },
 
-  created() {
-    this.perPage = 3
+  beforeRouteEnter(routeTo, routeFrom, next) {
+    getPageEvents(routeTo, next)
+  },
 
-    this.$store.dispatch('event/fetchEvents', {
-      perPage: this.perPage,
-      page: this.page,
-    })
+  beforeRouteUpdate(routeTo, routeFrom, next) {
+    getPageEvents(routeTo, next)
+  },
+
+  mounted() {
+    console.log('hi')
+    console.log(this.event)
   },
 
   computed: {
-    page() {
-      return parseInt(this.$route.query.page) || 1
-    },
     hasNextPage() {
-      return this.eventsTotal > this.page * this.perPage
+      return this.eventsTotal > this.page * this.event.perPage
     },
     ...mapState({
-      events: (state) => state.event.events,
-      eventsTotal: (state) => state.event.eventsTotal,
+      event: (state) => state.event,
       user: (state) => state.user.user,
     }),
   },

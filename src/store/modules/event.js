@@ -6,6 +6,7 @@ export const state = {
   event: {},
   events: [],
   eventsTotal: 0,
+  perPage: 3,
 }
 
 export const mutations = {
@@ -68,22 +69,19 @@ export const actions = {
         dispatch('notification/add', notification, { root: true })
       })
   },
-  async fetchEvents({ commit, dispatch }, { perPage, page }) {
-    try {
-      const {
-        data,
-        headers: { 'x-total-count': eventsTotal },
-      } = await EventService.getEvents(perPage, page)
-
-      commit('SET_EVENTS', data)
-      commit('SET_EVENTS_TOTAL', parseInt(eventsTotal, 10))
-    } catch ({ message }) {
-      const notification = {
-        type: 'error',
-        message: `There was a problem fetching events: ${message}`,
-      }
-      dispatch('notification/add', notification, { root: true })
-    }
+  fetchEvents({ commit, dispatch }, { page }) {
+    return EventService.getEvents(state.perPage, page)
+      .then(({ data, headers: { 'x-total-count': eventsTotal } }) => {
+        commit('SET_EVENTS', data)
+        commit('SET_EVENTS_TOTAL', parseInt(eventsTotal, 10))
+      })
+      .catch(({ message }) => {
+        const notification = {
+          type: 'error',
+          message: `There was a problem fetching events: ${message}`,
+        }
+        dispatch('notification/add', notification, { root: true })
+      })
   },
 }
 
